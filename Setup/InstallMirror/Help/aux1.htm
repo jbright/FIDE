@@ -1,0 +1,89 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY bgcolor=white>
+<h1>AUX</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Allows for sending and receiving data between the 9010A and other
+		devices using the RS-232 Interface Option.
+		<ul>
+			<li> The string parameter represents the text to be sent.
+			<br><br>
+			<li> The text is separated from the AUX keyword by a single
+			space, hyphen, or tab.
+			<br><br>
+			<li> Any spaces beyond the single separating character are treated
+			as part of the display message, resulting in leading blanks.
+			<br><br>
+			<li> The AUX string can contain a maximum of 32 characters.
+			<br><br>
+			<li> Spaces at the end of an AUX string are ignored. If trailing blanks
+			are desired, the appropriate number of underscores should be appended
+			to the AUX string.
+			<br><br>
+			<li> Characters allowed in the AUX string are limited to those available
+			on the 9010A. 
+			<br><br>
+			<li> The functions of the special AUX I/F characters are shown below. Symbolic
+			register names can be used with these special AUX characters. Symbolic register
+			names are counted as one character in the AUX string.
+			<br><br>
+			<li> A symbolic register name cannot be immediately followed by a 
+			hexadecimal character (0-9, A-F). A separating space is required.
+			<br><br>
+		</ul> 
+
+		<table>
+		<tr>
+			<th>Character</th>
+			<th>Action Caused</th>
+		</tr>
+		<tr>
+			<td>#</td>
+			<td>Sends a control G (bell) to the RS-232 interface.</td>
+		</tr>
+		<tr>
+			<td>$</td>
+			<td>When followed by a hexadecimal digit or symbolic register name, $
+			causes the contents of the designated register to be transmitted in
+			hexadecimal to the RS-232 interface.</td>
+		</tr>
+		<tr>
+			<td>@</td>
+			<td>Same as the $ symbol, except that the contents are transmitted in decimal.</td>
+		</tr>
+		<tr>
+			<td>/</td>
+			<td>When / is followed by a hexsdecimal digit or symbolic register name, 
+			it suspends program execution, waits for the next byte of data from the
+			RS-232 interface, and places the value of the byte in the designated
+			register. (The upper three bytes of the register equal zero.) If the RS-232
+			interface is configured to transfer eight data bits, then eight data bits
+			appear. Otherwise, the eight data bit (bit 7) is zero.</td>
+		</tr>
+		</table>
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		aux ROM SIGNATURE IS $ROMSIG1<br>
+		aux Test complete
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="dpy.htm">dpy</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

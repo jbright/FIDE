@@ -1,0 +1,573 @@
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Set up code
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+setup
+	!!	Not sure we want to disable any of these
+		trap active force line no
+	!!	trap active interrupt no
+	!!	trap data error no
+
+	include "6502.POD"
+	POD 6502
+	Bus Test @ 0000
+	
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Main Menu: 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Menu
+
+declarations
+	assign REG1 to INPUT
+	
+	!! Intro
+	execute QuarterArcadeLogo
+	
+	!! Short delay to introduce program
+	dpy CENTIPEDE TEST SCRIPT
+	aux CENTIPEDE TEST SCRIPT
+	REG8 = 10
+	execute DelayTics8
+	
+
+	!! Main loop is here. Wait for input
+	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
+LPMainMenu:
+	aux _
+	aux _
+	aux MENU
+	aux ____1=RAM TEST
+	aux ____2=ROM TEST
+	aux ____3=SOUND TEST
+	aux _
+	aux COMMAND>
+	dpy MENU> 1-3 /1
+
+	if INPUT = 1 goto Menu1
+	if INPUT = 2 goto Menu2
+	if INPUT = 3 goto Menu3
+	!!if INPUT = C goto MenuC
+	!!if INPUT = F goto MainLoop
+	goto LPMainMenu
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Menu1: RAM tests. Standard short
+!!	RAM, standard long, and a custom
+!!	RAM program I wrote for kicks 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Menu1:
+	aux _
+	aux _
+	aux MENU
+	aux ____1=RAM SHORT TEST
+	aux ____2=RAM LONG TEST
+	aux ____3=CUSTOM RAM TEST
+	aux _
+	aux COMMAND>
+
+	dpy RAM> 1=SHRT 2=LNG 3=CUST F=UP /1
+
+	if INPUT = 1 goto Menu11
+	if INPUT = 2 goto Menu12
+	if INPUT = 3 goto Menu13
+	if INPUT = F goto LPMainMenu
+	goto Menu1
+	
+Menu11:
+	execute TSTRMSRT
+	goto Menu1
+
+Menu12:
+	execute TSTRMLNG
+	goto Menu1
+	
+Menu13:
+	execute TSTRMCUST
+	goto Menu1
+		
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Menu2: Tests the ROM sigs
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Menu2:
+	execute ROMTEST
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy ROM OK <E>/1
+	goto LPMainMenu
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Menu3: Sound tests
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Menu3:
+	execute SNDTEST
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy ROM OK <E>/1
+	goto LPMainMenu
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: TSTRMSRT (Test RAM short)
+!! Purpose: 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program TSTRMSRT
+
+	dpy SHORT RAM TEST, PLEASE WAIT...
+	aux SHORT RAM TEST, PLEASE WAIT...
+
+	!!	0000-03FF       D  D  D  D  D  D  D  D   RAM
+	dpy TESTING 0-3FF
+	aux 0000-03FF +
+	RAM SHORT @ 0-03FF
+	aux RAM OK
+
+	!!	0400-07BF       D  D  D  D  D  D  D  D   Playfield RAM
+	dpy TESTING 0400-07BF
+	aux 0400-07BF +
+	RAM SHORT @ 0400-07BF
+	aux PLAYFIELD RAM OK
+
+	!!	07C0-07CF       D  D  D  D  D  D  D  D   Motion Object Picture
+	dpy TESTING 07C0-07CF
+	aux 07C0-07CF +
+	RAM SHORT @ 07C0-07CF
+	aux MOTION OBJECT PICTURE OK
+
+	!!	07D0-07DF       D  D  D  D  D  D  D  D   Motion Object Vert.
+	dpy TESTING 07D0-07DF
+	aux 07D0-07DF +
+	RAM SHORT @ 07D0-07DF
+	aux MOTION OBJECT VERT OK
+
+
+	!!	07E0-07EF       D  D  D  D  D  D  D  D   Motion Object Horiz.
+	dpy TESTING 07E0-07EF
+	aux 07E0-07EF +
+	RAM SHORT @ 07E0-07EF
+	aux MOTION OBJECT HORIZ
+
+
+	!!	07F0-07FF             D  D  D  D  D  D   Motion Object Color
+	dpy TESTING 07F0-07FF
+	aux 07F0-07FF +
+	RAM SHORT @ 07F0-07FF
+	aux MOTION OBJECT COLOR
+
+	aux ALL RAM TESTS OK
+	dpy COMPLETE <E>/1
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: RDROMSIG (Test RAM long)
+!! Purpose: 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program TSTRMLNG
+
+	dpy LONG RAM TEST, PLEASE WAIT...
+	aux LONG RAM TEST, PLEASE WAIT...
+
+	!!	0000-03FF       D  D  D  D  D  D  D  D   RAM
+	dpy TESTING 0-3FF
+	aux 0000-03FF +
+	RAM LONG @ 0-03FF
+	aux RAM OK
+
+	!!	0400-07BF       D  D  D  D  D  D  D  D   Playfield RAM
+	dpy TESTING 0400-07BF
+	aux 0400-07BF +
+	RAM LONG @ 0400-07BF
+	aux PLAYFIELD RAM OK
+
+	!!	07C0-07CF       D  D  D  D  D  D  D  D   Motion Object Picture
+	dpy TESTING 07C0-07CF
+	aux 07C0-07CF +
+	RAM LONG @ 07C0-07CF
+	aux MOTION OBJECT PICTURE OK
+
+	!!	07D0-07DF       D  D  D  D  D  D  D  D   Motion Object Vert.
+	dpy TESTING 07D0-07DF
+	aux 07D0-07DF +
+	RAM LONG @ 07D0-07DF
+	aux MOTION OBJECT VERT OK
+
+
+	!!	07E0-07EF       D  D  D  D  D  D  D  D   Motion Object Horiz.
+	dpy TESTING 07E0-07EF
+	aux 07E0-07EF +
+	RAM LONG @ 07E0-07EF
+	aux MOTION OBJECT HORIZ
+
+
+	!!	07F0-07FF             D  D  D  D  D  D   Motion Object Color
+	dpy TESTING 07F0-07FF
+	aux 07F0-07FF +
+	RAM LONG @ 07F0-07FF
+	aux MOTION OBJECT COLOR
+
+	aux ALL LONG RAM TESTS OK
+	dpy COMPLETE <E>/1
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: TSTRMCUST (Test RAM Custom)
+!! Purpose: Custom test that will give detailed status of the ROM test
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program TSTRMCUST
+
+declarations
+	assign REG1 to Input
+	assign REG2 to AddToTest
+	assign REG3 to BitPattern
+	assign REG4 to Val
+	assign REG5 to Pass
+
+
+Menu:
+	!!	0000-03FF       D  D  D  D  D  D  D  D   RAM
+	!!	--------------------------------------------------------------------------------------
+	!!	0400-07BF       D  D  D  D  D  D  D  D   Playfield RAM
+	!!	07C0-07CF       D  D  D  D  D  D  D  D   Motion Object Picture
+	!!	07D0-07DF       D  D  D  D  D  D  D  D   Motion Object Vert.
+	!!	07E0-07EF       D  D  D  D  D  D  D  D   Motion Object Horiz.
+	!!	07F0-07FF             D  D  D  D  D  D   Motion Object Color
+	aux _
+	aux _
+	aux CUSTOM RAM MENU
+	aux ____1=RAM +
+	aux _0000-03FF
+
+	aux ____2=PLAYFIELD +
+	aux _RAM 0400-07BF
+
+	aux ____3=MOTION OBJECT+
+	aux PICTURE 07C0-07CF
+
+	aux ____4=MOTION OBJECT+
+	aux VERTICAL 07D0-07DF
+
+	aux ____5=MOTION OBJECT+
+	aux HORIZONTAL 07E0-07EF
+
+	aux ____6=MOTION OBJECT+
+	aux COLOR 07F0-07FF
+	
+	aux ____7=TEST ALL
+	aux ____F=UP
+	aux _
+	aux COMMAND>
+
+	dpy CUST RAM> 1-6 F=UP /1
+
+	if INPUT = 1 goto Menu1
+	if INPUT = 2 goto Menu2
+	if INPUT = 3 goto Menu3
+	if INPUT = 4 goto Menu4
+	if INPUT = 5 goto Menu5
+	if INPUT = 6 goto Menu6
+	if INPUT = 7 goto Menu7
+	if INPUT = F goto MenuDone
+	goto Menu
+
+Menu1:
+	execute RAM1
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy RAM OK <E>/1
+	goto Menu
+
+Menu2:
+!!	execute RAM2
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy RAM OK <E>/1
+	goto Menu
+
+Menu3:
+!!	execute RAM3
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy RAM OK <E>/1
+	goto Menu
+
+Menu4:
+!!	execute RAM4
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy RAM OK <E>/1
+	goto Menu
+
+Menu5:
+!!	execute RAM5
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy RAM OK <E>/1
+	goto Menu
+
+Menu6:
+!!	execute RAM6
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy RAM OK <E>/1
+	goto Menu
+
+Menu7:
+!!	execute RAM6
+	aux DONE
+	aux PRESS <ENTER//YES>
+	dpy RAM OK <E>/1
+	goto Menu
+
+
+MenuDone:
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: RAM Test #1
+!! Purpose: Tests the general centipede RAM. This is comprised of two 
+!! 	2114 chips that each handle one niblle.
+!!		H2: Low nibble (DB0-DB3)
+!!		F2: High nibble (DB4-DB7)
+!!
+!!	TODO: This program takes far too long if you test every address
+!!	also, right now I'm just testing AA. I should do a little more
+!!	random testing maybe? Like a quick test? Open issue.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program RAM1
+
+declarations
+	assign REG1 to DataByte
+	assign REG2 to AddrToTest
+	assign REG3 to BitPattern
+	assign REG4 to Results
+	assign REG5 to Nibble
+	assign REG6 to BPLow
+	assign REG7 to BPHigh
+
+	!! initializations. We're testing 0000 - 03FF
+	AddrToTest = 0
+	BitPattern = AA
+
+Loop1:
+	dpy TESTING $AddrToTest 
+	WRITE @ AddrToTest = BitPattern
+
+	READ @ AddrToTest	
+	Results = REGE
+
+	!! Test low nibble
+	BPLow = BitPattern AND 0F
+	Nibble = Results AND 0F
+
+	if BPLow = Nibble goto CONTL1
+	goto Error1
+
+CONTL1:
+	!! Test high nibble
+	BPHigh = BitPattern AND F0
+	Nibble = Results AND F0
+
+	if BPHigh = Nibble goto CONTL2
+	goto Error2
+
+CONTL2:
+	!!	if AddrToTest = 03FF goto RAM1DONE
+	if AddrToTest = 00FF goto RAM1DONE
+	inc AddrToTest
+	goto Loop1
+
+!! We didn't get what we expected
+Error1:
+	aux READ @ $AddrToTest FAILED
+	aux EXPECTED $BitPattern
+	aux GOT $Results
+	aux CHIP H2 <2114> MAY HAVE FAILED
+	aux REPLACE RAM
+	dpy CHIP H2 ERROR ##\1
+	goto RAM1DONE
+
+Error2:
+	aux READ @ $AddrToTest FAILED
+	aux EXPECTED $BitPattern
+	aux GOT $Results
+	aux CHIP F2 <2114> MAY HAVE FAILED
+	aux REPLACE RAM
+	dpy CHIP F2 ERROR ##\1
+	goto RAM1DONE
+
+RAM1DONE:
+	
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMTEST
+!! Purpose: Tests the ROMS and see if they match sig values. 
+!!
+!!	Program
+!!	ROM_LOAD( "centiped.307", 0x2000, 0x0800, 0x5ab0d9de )
+!!	ROM_LOAD( "centiped.308", 0x2800, 0x0800, 0x4c07fd3e )
+!!	ROM_LOAD( "centiped.309", 0x3000, 0x0800, 0xff69b424 )
+!!	ROM_LOAD( "centiped.310", 0x3800, 0x0800, 0x44e40fa4 )
+!!
+!!	Playfield?
+!!	ROM_LOAD( "centiped.211", 0x0000, 0x0800, 0x880acfb9 )
+!!	ROM_LOAD( "centiped.212", 0x0800, 0x0800, 0xb1397029 )
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMTEST
+
+declarations
+	assign REG1 to Input
+
+Menu:
+	aux _
+	aux _
+	aux ROM MENU
+	aux ____1=ROM D1
+	aux ____2=ROM E1
+	aux ____3=ROM F//H1
+	aux ____4=ROM J1
+	aux ____C=TEST ALL
+	aux ____F=RETURN
+	aux _
+	aux COMMAND>
+	dpy M> 1-4,C,F /1
+
+	if INPUT = 1 goto Menu1
+	if INPUT = 2 goto Menu2
+	if INPUT = 3 goto Menu3
+	if INPUT = 4 goto Menu4
+	if INPUT = C goto MenuC
+	if INPUT = F goto Exit
+	goto Menu
+
+Menu1:
+	execute ROMTEST1
+	dpy D1 OK <E>/1
+	goto Menu
+
+Menu2:
+	execute ROMTEST2
+	dpy E1 OK <E>/1
+	goto Menu
+
+Menu3:
+	execute ROMTEST3
+	dpy F//H1 OK <E>/1
+	goto Menu
+
+Menu4:
+	execute ROMTEST4
+	dpy J1 OK <E>/1
+	goto Menu
+
+MenuC:
+	execute ROMTEST1
+	execute ROMTEST2
+	execute ROMTEST3
+	execute ROMTEST4
+	aux ALL PROGRAM ROMS OK
+	dpy PGM ROM OK \1
+	goto Menu
+Exit:
+
+program ROMTEST1
+	dpy ROM D1, 307
+	aux ROM D1, CENTIPED.307 +
+	ROM TEST @ 2000-27FF SIG BFA2
+	aux OK
+
+program ROMTEST2
+	dpy ROM E1, 308
+	aux ROM E1, CENTIPED.308 +
+	ROM TEST @ 2800-2FFF SIG 14EB
+	aux OK
+
+program ROMTEST3
+	dpy ROM F//H1, 309
+	aux ROM F//H1, CENTIPED.309 +
+	ROM TEST @ 3000-37FF SIG 600D
+	aux OK
+
+program ROMTEST4
+	dpy ROM J1, 310
+	aux ROM J1, CENTIPED.310 +
+	ROM TEST @ 3800-3FFF SIG A93C
+	aux OK
+
+!! Can't be tested in the usual manner
+!!program ROMTEST5
+!!	TODO: figure out what address this is?
+!!	dpy ROM F7, 211
+!!	aux ROM F7, CENTIPED.211 +
+!!	ROM TEST @ 0000-0800 SIG 0000
+!!	aux OK
+!! Can't be tested in the usual manner
+!!program ROMTEST6
+!!	dpy ROM H//J7, 212
+!!	aux ROM H//J7, CENTIPED.212 +
+!!	ROM TEST @ 0800-1FFF SIG 0000
+!!	aux OK
+	
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: Sound Test
+!! Purpose: from the Atari spec, test three channels
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program SNDTEST
+
+	!! we'll delay for this long
+	REG8 = 10
+
+	aux SETUP TONES
+	write @ 100F = 00
+	write @ 100F = 03
+
+	aux TONE TO CHANNEL 1
+	write @ 1000 = 55
+	write @ 1001 = AF	!! tone
+	execute DelayTics8
+	write @ 1001 = 00	!! off
+
+	aux TONE TO CHANNEL 2
+	write @ 1002 = 55
+	write @ 1003 = AF	!! tone
+	execute DelayTics8
+	write @ 1003 = 00	!! off
+
+	aux TONE TO CHANNEL 3
+	write @ 1004 = 55
+	write @ 1005 = AF	!! tone
+	execute DelayTics8
+	write @ 1005 = 00	!! off
+
+	aux TONE TO CHANNEL 4
+	write @ 1006 = 55
+	write @ 1007 = AF	!! tone
+	execute DelayTics8
+	write @ 1007 = 00	!! off
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: DelayTics8
+!! Purpose: Delays the number of tics specified by REG8
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program DelayTics8
+
+	REG1 = REG8
+dloop:
+	dec REG1
+	if REG1 > 0 goto dloop
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: QuarterArcadeLogo
+!! Purpose: I'm a geek
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program QuarterArcadeLogo
+
+	dpy WWW.QUARTERARCADE.COM
+	aux WWW.QUARTERARCADE.COM
+	REG8 = 10
+	execute DelayTics8
+

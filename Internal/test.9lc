@@ -1,0 +1,175 @@
+! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !!
+!
+!  Fluke 9010A Code Generator
+!  Process copyright QuarterArcade.com, LLC 
+!
+! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! SETUP CODE 
+!! Purpose: To set the pod include file and the pod being used, as well as
+!!		relevant setup conditions.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! SUB: Main
+!! PURPOSE: Start the process. Introduce the program to refresh the 
+!!   operator's memory, and enter into the main menu.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Main
+
+declarations
+	!! Intro
+	execute QuarterArcadeLogo
+	!! Short delay to introduce program
+	dpy SCRIPT
+	aux SCRIPT
+	REG8 = 10
+	execute DelayTics8
+
+	execute MainMenu
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! SUB: MainMenu
+!! PURPOSE: Give the user options to select from in menu format.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program MainMenu
+
+declarations
+	assign REGB to Input
+
+MenuLp:
+	Input = 0
+	aux _
+	aux _
+	aux MAIN MENU
+	aux ____1=RAMMenu
+	aux _
+	aux _
+	aux MENU COMMAND>
+	dpy CMD> 1
+	execute GetKey
+
+	if Input = 1 goto Menu1    !! hooks to RAMMenu
+	goto  MenuLp
+
+Menu1:	!! RAMMenu
+	execute RAMMenu
+	dpy #
+	dpy TEST DONE
+	aux TEST DONE
+	execute GetKey
+	goto MenuLp
+
+
+	
+MenuF:
+
+program F_1
+
+	dpy ok
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! SUB: RAMMenu
+!! PURPOSE: Give the user options to select from in menu format.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program RAMMenu
+
+declarations
+	assign REGB to Input
+
+MenuLp:
+	Input = 0
+	aux _
+	aux _
+	aux RAM MENU
+	aux ____1=testram
+	aux ____E=TEST ALL 
+	aux _
+	aux ____F=RETURN 
+	aux _
+	aux MENU COMMAND>
+	dpy CMD> 1,E=ALL,F=UP
+	execute GetKey
+
+	if Input = 1 goto Menu1    !! hooks to testram
+	if Input = E goto MenuE    !! hooks to all tests
+	goto  MenuLp
+
+Menu1:	!! testram
+	execute testram
+	dpy #
+	dpy TEST DONE
+	aux TEST DONE
+	execute GetKey
+	goto MenuLp
+
+MenuE:	!! All tests
+	execute testram
+	dpy #
+	dpy TESTS DONE
+	aux TESTS DONE
+	execute GetKey
+	goto MenuLp
+
+
+	
+MenuF:
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: testram
+!! Purpose: Tests one address range in RAM mode. $0-$100
+!!	t
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program testram
+
+	dpy RAM test @ 0-100
+	aux RAM test @ 0-100
+	
+	RAM short @ 0-100
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: KeyEnable
+!! Purpose: Wait for a key to be pressed
+!! Inputs: none
+!! Output: Reg B = 40; toggles the enabling of asynchronous keyboard interrupt
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program KeyEnable
+	REGB = 40                   !Initialize reg B
+	dpy-+%B                     !Enable key interrupt to reg B
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: GetKey
+!! Purpose: Wait here until a key is pressed
+!! Inputs: none
+!! Calls to: KeyEnable
+!! Outputs: Register B = the value of a key pressed (0-3F)
+!! Based on program found in the GFI example from Fluke's documentation
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program GetKey
+	execute KeyEnable           ! Enable interrupt
+1:	LABEL 1    
+	if REGB = 40 goto 1         ! Loop till key pressed (<40)
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: DelayTics8
+!! Purpose: Delays the number of tics specified by REG8
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program DelayTics8
+
+	REG1 = REG8
+dloop:
+	dec REG1
+	if REG1 > 0 goto dloop
+	
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: QuarterArcadeLogo
+!! Purpose: I'm a geek. 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program QuarterArcadeLogo
+
+	dpy TECH.QUARTERARCADE.COM
+	aux TECH.QUARTERARCADE.COM
+	REG8 = 10
+	execute DelayTics8	
+

@@ -1,0 +1,240 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!
+!! Test from the video board. Zookeeper banks A000-B000 ROM via bit 1
+!! on address line 8801. This program will take care of that automatically.
+!! It will test the ROMs on the ROM expansion card. Takes about 2-5 minutes
+!! to do. There are more than one versions of ROMs, but I don't know if 
+!! these ROMs vary at all. I used a version onhand (tested a few boards with
+!! it and they were fine.)
+!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Set up code
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+setup
+	exercise errors NO	!! errors will get sent to RS-232.
+				!! remove if you're not running connected.
+	include "6809E.POD"
+	POD 6809E
+	
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Main Menu: 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Menu
+
+declarations
+	assign REGB to INPUT
+	
+	!! Intro
+	execute QuarterArcadeLogo
+	
+	!! Short delay to introduce program
+	dpy ZOOKEEPER VID ROM SCRIPT
+	aux ZOOKEEPER VID ROM SCRIPT
+	REG8 = 10
+	execute DelayTics8
+	
+
+Menu:
+	INPUT = 0
+
+	aux _
+	aux _
+	aux TEST ROM MENU
+	aux ____3=ROM TEST U3_ A000-AFFF P1 
+	aux ____4=ROM TEST U4_ B000-BFFF P1
+	aux ____5=ROM TEST U5_ A000-AFFF P0
+	aux ____6=ROM TEST U6_ B000-BFFF P0
+	aux ____7=ROM TEST U7_ C000-CFFF P0
+	aux ____8=ROM TEST U8_ D000-DFFF P0
+	aux ____9=ROM TEST U9_ E000-EFFF P0
+	aux ____1=ROM TEST U10 F000-FFFF P0
+	aux _
+	aux ____A=ROM TEST ALL
+	aux _
+	aux COMMAND>
+	dpy CMD ROM>3-9,1, A=ALL
+	execute GetKey
+
+	if INPUT = 3 goto Menu3
+	if INPUT = 4 goto Menu4
+	if INPUT = 5 goto Menu5
+	if INPUT = 6 goto Menu6
+	if INPUT = 7 goto Menu7
+	if INPUT = 8 goto Menu8
+	if INPUT = 9 goto Menu9
+	if INPUT = 1 goto Menu1
+
+	if INPUT = A goto MenuA
+	goto Menu
+
+	
+Menu3:
+	execute ROMU3
+	dpy ROM U3 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+		
+Menu4:
+	execute ROMU4
+	dpy ROM U4 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu5:
+	execute ROMU5
+	dpy ROM U5 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu6:
+	execute ROMU6
+	dpy ROM U6 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu7:
+	execute ROMU7
+	dpy ROM U7 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu8:
+	execute ROMU8
+	dpy ROM U8 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu9:
+	execute ROMU9
+	dpy ROM U9 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu1:
+	execute ROMU10
+	dpy ROM U10 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+MenuA:
+	execute ROMU3
+	execute ROMU4
+	execute ROMU5
+	execute ROMU6
+	execute ROMU7
+	execute ROMU8
+	execute ROMU9
+	execute ROMU10
+	dpy #
+	dpy #
+	dpy ALL ROM DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: Page0
+!! Purpose: Switch to Page 0 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Page0
+	write @ 8801 = 0
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: Page1
+!! Purpose: Switch to Page1 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Page1
+	write @ 8801 = FF
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU3
+!! Purpose: Tests A000-AFFF (page 1) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU3
+	dpy ROM U3...
+	aux ROM U3... +
+	execute Page1
+	ROM TEST @ A000-AFFF SIG 9D35
+	aux OK
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU4
+!! Purpose: Tests B000-BFFF (page 1) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU4
+	dpy ROM U4...
+	aux ROM U4... +
+	execute Page1
+	ROM TEST @ B000-BFFF SIG 8AB7
+	aux OK
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU5
+!! Purpose: Tests A000-AFFF (page 0) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU5
+	dpy ROM U5...
+	aux ROM U5... +
+	execute Page0
+	ROM TEST @ A000-AFFF SIG 2020
+	aux OK
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU6
+!! Purpose: Tests B000-BFFF (page 0) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU6
+	dpy ROM U6...
+	aux ROM U6... +
+	execute Page0
+	ROM TEST @ B000-BFFF SIG 63D6
+	aux OK
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU7
+!! Purpose: Tests C000-CFFF (page 0) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU7
+	dpy ROM U7...
+	aux ROM U7... +
+	execute Page0
+	ROM TEST @ C000-CFFF SIG 0D72
+	aux OK
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU8
+!! Purpose: Tests D000-DFFF (page 0) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU8
+	dpy ROM U8...
+	aux ROM U8... +
+	execute Page0
+	ROM TEST @ D000-DFFF SIG D7AF
+	aux OK
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU9
+!! Purpose: Tests E000-EFFF (page 0) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU9
+	dpy ROM U9...
+	aux ROM U9... +
+	execute Page0
+	ROM TEST @ E000-EFFF SIG 0F73
+	aux OK
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: ROMU10
+!! Purpose: Tests F000-FFFF (page 0) 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROMU10
+	dpy ROM U10...
+	aux ROM U10... +
+	execute Page0
+	ROM TEST @ F000-FFFF SIG 7F4B
+	aux OK
+
+include "BASICF~1.9LC"

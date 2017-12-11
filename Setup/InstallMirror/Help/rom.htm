@@ -1,0 +1,47 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>ROM TEST</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		
+		Computes a ROM signature for each block of ROM and compares it to the
+		reference ROM signature.
+		
+		<ul>
+			<li> If no addres block is specified, then the 9010A performs a ROM
+			Test over all blocks of memory specified under Address Space
+			Description and compuares teh signatures to those specified in the
+			Addres Space Information.
+			<br><br>
+			<li> The signature expression must have a hexadeciam value in the range 0 - FFFF.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		ROM test<br>
+		ROM test @ 8000 - 9FFF sig AFC7<br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="auto.htm">auto test</a>
+<a href="bus.htm">bus test</a>,
+<a href="io.htm">IO test</a>,
+<a href="ram.htm">RAM test</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

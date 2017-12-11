@@ -1,0 +1,64 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>GLOBAL/LOCAL DECLARAION</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Allows the programmer to define symbolic register names with local or global scope. 
+		<ul>
+			<li> Names with global scope are known throughout the entire source file
+			and all files that are included after the global declarations.
+			<br><br>
+			<li> If a register name is redfinied locally (inside a 9010A program), the
+			local definition overrides the global definiation and the program had no
+			knowledge of the global declaration.
+			<br><br>
+			<li> Global declarations must appear at the beginning of the source file,
+			before the first 9010A program is encountered.
+			<br><br>
+			<li> Local declarations must appear betwen the program statement and the
+			first statement of the 9010A program body.
+			<br><br>
+			<li> Global symbolic register declarations are restricted to the global
+			registers (8-F).
+			<br><br>
+			<li> Duplicate local names in different programs are unrelated.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		declarations<br>
+		&nbsp;&nbsp;&nbsp;assign REG8 to Load<br>
+		&nbsp;&nbsp;&nbsp;assign REG9 to Flag<br>
+		<br>
+		program ...<br>
+		<br>
+		<hr size=1>
+		<br>
+		program MyTest<br>
+		declarations<br>
+		&nbsp;&nbsp;&nbsp;assign REG8 to Local1<br>
+		<br>
+		...
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="CompilerIndex.htm">Complier index</a>,
+<a href="registers.htm">Available registers</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

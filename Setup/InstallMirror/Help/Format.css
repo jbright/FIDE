@@ -1,0 +1,61 @@
+body
+{
+	margin: 4px;
+	background-color: White;
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 8pt;
+	padding: 0px;
+	background-image: url('Watermark.jpg');
+	background-repeat: no-repeat;
+	background-position: bottom right;
+	background-attachment:fixed;
+}
+P
+{
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 8pt;
+}
+TD
+{
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 8pt;
+}
+TD.Content
+{
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 8pt;
+	padding-right: 6px;
+
+}
+H1
+{
+	font-family: Tahoma, Verdana, Arial;
+	font-weight: bold;
+	font-size: 12pt;
+	color: #000080;
+	border-bottom: 1px solid #000080;	
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+H2
+{
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #000040;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+th
+{
+	font-family: Tahoma, Verdana, Arial;
+	font-size: 10pt;
+	font-weight: bold;
+	border-bottom: 1px solid black
+}
+.EX
+{
+	font-family: Courier New, Courier
+	font-size: 8pt;
+}
+

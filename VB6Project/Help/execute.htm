@@ -1,0 +1,54 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>EXECUTE</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Executes one program from within another program in a subroutine.
+		<ul>
+			<li> Program number are limited to the range 0-99.
+			<br><br>
+			<li> A program may call a program which in turn calls another program.
+			Programs may be called up to ten levels of nesting.
+			<br><br>
+			<li> If multiple levels of programs are called, a program may not call any program from a previous level.
+			<br><br>
+			<li> A program may not call itself.
+			<br><br>
+			<li> Symbolic program names can be used in the statement.
+			<br><br>
+			<li> The compiler issues a warning message if you attempt to execute a program that is not contained in the files being compiled.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		excute program 5<br>
+		ex 5<br>
+		execute delay<br>
+		</font>
+	</td>
+</tr>
+</table>
+
+See also:
+<a href="program.htm">program</a>,
+<a href="atog.htm">atog</a>,
+<a href="ramp.htm">ramp</a>,
+<a href="read.htm">read</a>,
+<a href="walk.htm">walk</a>,
+<a href="write.htm">write</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+
+</body>
+</html>

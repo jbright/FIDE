@@ -1,0 +1,55 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>PROGRAM</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		
+		Defines a program that can be executed on the 9010A, either programmatically,
+		or via user control. <br>
+		<br>
+		You can use a number or a logical name to define your program. A logical
+		name is recommended.
+		<ul>
+			<li> Program numbers must be decimal numbers in the range of 0 - 99.
+			<br><br>
+			<li> Avoid using byte counts. This is a function of the legacy compiler,
+			and is not necessary.
+			<br><br>
+			<li> Symbolic names can be used, and are preferred.
+			<br><br>
+			<li> The source file can contain no more than 100 9010A programs.
+			<br><br>
+			<li> Numbered programs must appear in the correct order. If programs with
+			symbolic names are combined with numbered programs, there must be a correct numbre of
+			symbolically named programs between numbered programs. (Really, use
+			symbolically named programs unless you have a good reason not to.)
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		program OneTest<br>
+		declarations<br>
+		&nbsp;&nbsp;&nbsp;assign REG1 to InputAddr<br>
+		!! .. program starts
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="execute.htm">execute</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

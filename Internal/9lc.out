@@ -1,0 +1,20 @@
+
+
+            9010A Language Compiler - Version 1.2
+          Copyright(c) 1983 John Fluke Mfg. Co., Inc.
+
+
+
+compiling ...
+
+Program  0 (MENU    ) -  526 bytes
+Program  1 (ROM307  ) -  936 bytes
+Program  2 (ROM308  ) -  938 bytes
+Program  3 (ROM309  ) -  937 bytes
+Program  4 (ROM310  ) -  935 bytes
+Program  5 (KEYENABL) -   12 bytes
+Program  6 (GETKEY  ) -   18 bytes
+Program  7 (DELAYTIC) -   21 bytes
+Program  8 (QUARTERA) -   62 bytes
+
+                TOTAL = 4385 bytes

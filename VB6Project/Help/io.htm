@@ -1,0 +1,71 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>IO TEST</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Test the read-write capability of all bits in I/O registers described as having read-write capability.
+		<ul>
+			<li> If an expression is used to specify the bit mask (following BTS), it
+			must have a hexadecimal value in one of the following ranges:<br>
+			<br>
+			<ul>
+			<table>
+			<tr>
+				<td>1-FF</td>
+				<td>8-bit microprocessor</td>
+			</tr>
+			<tr>
+				<td>1-FFFF</td>
+				<td>16-bit microprocessor</td>
+			</tr>
+			<tr>
+				<td>1-FFFFFF</td>
+				<td>24-bit microprocessor</td>
+			</tr>
+			<tr>
+				<td>1-FFFFFFFF</td>
+				<td>32-bit microprocessor</td>
+			</tr>
+			</table>
+			</ul>
+			<br>
+			<li> Bits that are equal to 1 in the bit mask correspond to data lines that
+			are to be tested for read-write capability. Bits that are equal to 0 in
+			the bit mask correspond to data lines that are not to be tested for
+			read-write capability.
+			<br><br>
+			<li> If no address block is specified, then the 9010A performs the
+			specified IO TEST over all blocks of memory described as I/O
+			under Address Space Information.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		io test @ 4010 - 401F BTS 3D
+		</font>
+	</td>
+</tr>
+</table>
+
+See also:
+<a href="auto.htm">auto test</a>,
+<a href="bus.htm">bus test</a>,
+<a href="ram.htm">RAM test</a>,
+<a href="rom.htm">ROM test</a>,
+<a href="learn.htm">learn</a>,
+ADDRESS DESCRIPTOR.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

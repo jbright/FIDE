@@ -1,0 +1,250 @@
+
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: Page0
+!! Purpose: Switch to Page 0 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Page0
+	write @ 8801 = 0
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: Page1
+!! Purpose: Switch to Page1 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Page1
+	write @ 8801 = FF
+
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za10
+!! Purpose: ROM test based on file 
+!! 	0000:  4C F5 57 F5 9A FB 8F 34    76 DC 03 1E 89 43 DD 03 
+!! 	0010:  D6 01 C1 24 26 1C DE 03    33 C9 01 09 FF 94 02 D6 
+!! 	0020:  02 F7 94 00 33 C9 04 00    FF 94 02 F7 94 00 DC 03 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za10
+
+	!! select the appropriate page
+	execute Page0
+
+	read @ F000
+	if DAT = 4C goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT 4C
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ F000-FFFF sig 7F4B	! from file: za10
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za3
+!! Purpose: ROM test based on file 
+!! 	0000:  7E E5 D9 3B FF FF 7E E7    64 00 00 01 00 00 01 01 
+!! 	0010:  01 BB 63 BB 89 BB AF BB    D5 08 0D 00 FE 20 00 70 
+!! 	0020:  20 20 20 20 70 00 00 00    00 60 00 10 10 20 20 20 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za3
+
+	!! select the appropriate page
+	execute Page1
+
+	read @ A000
+	if DAT = 7E goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT 7E
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ A000-AFFF sig 9D35	! from file: za3
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za4
+!! Purpose: ROM test based on file 
+!! 	0000:  20 00 00 20 20 20 70 60    00 70 20 20 70 00 60 00 
+!! 	0010:  20 20 20 70 60 00 00 20    20 70 20 20 60 00 20 70 
+!! 	0020:  20 20 20 60 00 70 20 20    20 70 70 00 00 20 20 20 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za4
+
+	!! select the appropriate page
+	execute Page1
+
+
+	read @ B000
+	if DAT = 20 goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT 20
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ B000-BFFF sig 8AB7	! from file: za4
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za5
+!! Purpose: ROM test based on file 
+!! 	0000:  7E E5 D9 3B FF FF 7E E7    64 00 00 01 00 00 01 01 
+!! 	0010:  01 BB 63 BB 89 BB AF BB    D5 CF 04 CF 38 CF 41 CF 
+!! 	0020:  52 CF BC CF C7 D0 55 D1    2E D1 3A D2 BE D2 D2 D2 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za5
+
+	!! select the appropriate page
+	execute Page0
+
+	read @ A000
+	if DAT = 7E goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT 7E
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ A000-AFFF sig 2020	! from file: za5
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za6
+!! Purpose: ROM test based on file 
+!! 	0000:  E0 D0 C8 0A 03 00 00 00    60 60 00 60 60 20 40 01 
+!! 	0010:  03 00 04 02 C0 C0 40 80    08 05 70 C8 C0 70 08 08 
+!! 	0020:  C8 70 08 06 FC 30 30 30    30 30 30 30 08 05 C8 C8 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za6
+
+	!! select the appropriate page
+	execute Page0
+
+	read @ B000
+	if DAT = E0 goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT E0
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ B000-BFFF sig 63D6	! from file: za6
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za7
+!! Purpose: ROM test based on file 
+!! 	0000:  10 10 A0 40 00 00 00 00    20 40 00 00 00 30 00 10 
+!! 	0010:  10 10 30 10 10 00 00 60    00 00 00 00 00 00 00 10 
+!! 	0020:  10 10 10 A0 00 10 10 00    00 20 20 00 00 00 A0 A0 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za7
+
+	!! select the appropriate page
+	execute Page0
+
+	read @ C000
+	if DAT = 10 goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT 10
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ C000-CFFF sig D72	! from file: za7
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za8
+!! Purpose: ROM test based on file 
+!! 	0000:  27 50 DD 3E 9E 3E 6D 63    26 25 86 05 34 02 86 05 
+!! 	0010:  A0 E4 48 EC C6 31 8B 10    9F 39 10 BF 94 02 B6 94 
+!! 	0020:  00 95 3B 27 08 6A E4 26    E5 35 02 20 D0 35 02 6A 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za8
+
+	!! select the appropriate page
+	execute Page0
+
+	read @ D000
+	if DAT = 27 goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT 27
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ D000-DFFF sig D7AF	! from file: za8
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: za9
+!! Purpose: ROM test based on file 
+!! 	0000:  BD DF 6A BD CE D1 35 52    39 34 06 96 2A 44 44 44 
+!! 	0010:  44 C6 0A 3D 96 2A 84 0F    34 02 EB E0 86 0C 3D CB 
+!! 	0020:  54 1F 98 C6 21 0D 2D 27    02 C6 85 DD 3C 34 06 BD 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program za9
+
+	!! select the appropriate page
+	execute Page0
+
+	read @ E000
+	if DAT = BD goto L0
+	aux ERROR AT ADDR 00
+	aux ___GOT BD
+	aux ___EXPECTED $DAT
+	goto ErrCond
+ 
+L0:
+	ROM test @ E000-EFFF sig F73	! from file: za9
+	goto ProgDone
+ 
+ErrCond:
+	dpy # ERROR \1
+	aux ERROR
+ 
+ProgDone:
+

@@ -1,0 +1,83 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>ENABLE</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Setup parameter.<br>
+		<br>
+		Allows an operator to individually enable or disable
+		pod forcing lines. 
+		<ul>
+			<li> If YES is selected, the forcing line is enabled.
+			<br><br>
+			<li> If NO is selected, the forcing line is disabled.
+			<br><br>
+			<li> Forcing lines are pod-specific and include lines
+			such as the following:<br>
+			<br>
+			<table>
+			<tr>
+				<td width=100>
+					wait<br>
+					rdy<br>
+					tsc<br>
+					dbe<br>
+					halt<br>
+				</td>
+				<td width=100>
+					br/ack<br>
+					intr<br>
+					mr<br>
+					dma<br>
+					unused<br>
+				</td>
+				<td width=100>
+					ready<br>
+					busrq<br>
+					hold<br>
+					rqgto<br>
+					rqgti<br>
+				</td>
+			</tr>
+			</table>
+			<br>
+			<li> There are a maximum of eight enableable forcing lines.
+			Refer to the pod instruction manuals for specific information.
+			<br><br>
+			<li> The appropriate pod data file must be include prior
+			to the appearance of any ENABLE statements. In addition,
+			a POD statement identifying the pod should appear in the
+			Setup Parameter section of the source file.
+			<br><br>
+			<li> If a pod data file was included at the beginning
+			of the source file, the forcing lines listed in the definition
+			for FORCELNS will all have default values of YES.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		enable halt NO <br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="beep.htm">beep</a>.
+
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+
+</body>
+</html>

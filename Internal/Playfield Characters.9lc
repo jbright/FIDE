@@ -1,0 +1,127 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Set up code
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+setup
+	!!	Not sure we want to disable any of these
+		trap active force line no
+	!!	trap active interrupt no
+	!!	trap data error no
+
+	include "6502.POD"
+	POD 6502
+	Bus Test @ 0000
+	
+
+program PlayField
+
+declarations
+
+	assign REG3 to HexVal
+	assign REG4 to Row
+	assign REG5 to OutAddr
+	assign REG6 to Offset
+
+	HexVal = 0
+	Row = 400
+	Offset = 0
+	
+Loop1:
+	!! blank out middle char
+	OutAddr = Row Inc 64
+	write @ OutAddr = 00
+
+	!! are we done?
+	if HexVal = FF goto Done
+
+	!! what char are we outputting?
+	REG9 = Row
+	REG8 = HexVal
+	execute OutputHex
+
+	!! output our text char
+	OutAddr = Row Inc 96
+	write @ OutAddr = HexVal
+
+	aux abc def abc def ghi jkl mno 1234567890
+
+	!! Not done, increment everything else
+	inc HexVal
+	inc Offset
+
+	!! if we reach the top of the row, then we need to reset
+	!! our address
+	if HexVal = C0 goto ChangeAddr
+	if Offset = 20 goto ChangeOffSet
+	inc Row 
+	goto Loop1
+	
+ChangeOffSet:
+	Offset = 00
+	Row = Row Inc 129
+	goto Loop1
+
+ChangeAddr:
+	!! start over, and overwrite initial row
+	Offset = 00
+	Row = 400
+	goto Loop1
+Done:	
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: OutputHex
+!! Purpose: At address REG9 outputs hex value REG8
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program OutputHex
+
+declarations
+
+	assign REG1 to HexVal
+	assign REG2 to OutAddr
+
+	HexVal = REG8
+	OutAddr = REG9
+
+	!! Second, higher order digit
+	REG8 = HexVal shr 4
+	REG9 = OutAddr
+	execute OutHexDigit
+
+	!! First, lower order digit
+	REG8 = HexVal AND 0F
+	REG9 = OutAddr Inc 32
+	execute OutHexDigit
+
+	aux 123445656 1234567 abcdef   ghijklmnop
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: OutHexDigit
+!! Purpose: To output one hex digit. This is the easiest was to implement it
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program OutHexDigit
+
+declarations
+
+	assign REG1 to HexVal
+	assign REG2 to OutAddr
+
+	HexVal = REG8
+	OutAddr = REG9
+
+	!! By hand..  just easier this way
+	if A > HexVal goto DigNum
+	goto DigAlpha
+
+	!! Numerical digits are 32d - 41d
+DigNum:
+	HexVal = HexVal Inc 32
+	write @ OutAddr = HexVal
+	goto Done
+
+	!! Alpha digits are 1 - 24d
+DigAlpha:
+	HexVal = HexVal Dec 9
+	write @ OutAddr = HexVal
+Done:
+
+

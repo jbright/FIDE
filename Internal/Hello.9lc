@@ -1,0 +1,26 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! SUB: MainProgram
+!! PURPOSE: Start our program
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program MainProgram
+declarations
+	assign REG9 to Params
+
+	execute Intro				!! invoke another program
+	dpy READY TO WORK			!! time to chew bubble gum
+						!! and write code.
+						!!   .. and I'm all outta gum
+	dpy YOU PRESSED $Params
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! SUB: Intro
+!! PURPOSE: Tell the user what this program is, in case they forgot.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Intro
+declarations
+	assign REG9 to INPUT			!! we will capture input
+
+	!! get input
+	dpy EX 2 <TYPE NUMBER, PRESS ENT>/9
+	

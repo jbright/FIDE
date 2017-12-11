@@ -1,0 +1,49 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>RUN UUT</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		
+		Allows the interface pod microprocessor to execute the program code stored in the UUT.
+		
+		<ul>
+			<li> If an address is specified, the UUT begins executing the code at the address indicated.
+			<br><br>
+			<li> If no address is specified but a RUN UUT setup parameter is present,
+			the addre from the setup statement is supplied.
+			<br><br>
+			<li> If no RUN UUT statement appeared in the setup section, but a pod data
+			file was include at the beginning of the source file, then the
+			value for UUTADR will be supplied.
+			<br><br>
+			<li> If a pod data file was not included at the beginning of the source file, the
+			default address i 0000.
+			<br><br>
+
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		run UUT<br>
+		run UUT @ 1000<br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+Default setup parameters.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

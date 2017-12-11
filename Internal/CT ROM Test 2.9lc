@@ -1,0 +1,572 @@
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Set up code
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+setup
+
+	exercise errors no
+
+	include "6502.POD"
+	POD 6502
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Main Menu: 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program Menu
+
+declarations
+	assign REGB to INPUT
+	
+	!! Intro
+	execute QuarterArcadeLogo
+	
+	!! Short delay to introduce program
+	dpy CENTIPEDE ROM SCRIPT
+	aux CENTIPEDE ROM SCRIPT
+	REG8 = 10
+	execute DelayTics8
+	
+
+	! Don't jump on error
+	REG9 = 1	! = 0
+Menu:
+	INPUT = 0
+
+	aux _
+	aux _
+	aux TEST ROM  MENU
+	aux ____7=ROM TEST 307 2000-27FF
+	aux ____8=ROM TEST 308 2800-2FFF
+	aux ____9=ROM TEST 309 3000-37FF
+	aux ____0=ROM TEST 310 3800-3FFF
+	aux _
+	aux ____A=ROM TEST ALL
+	aux _
+	aux COMMAND>
+	dpy CMD ROM>7-9,0, A=ALL
+	execute GetKey
+
+	if INPUT = 7 goto Menu7
+	if INPUT = 8 goto Menu8
+	if INPUT = 9 goto Menu9
+	if INPUT = 0 goto Menu0
+
+	if INPUT = A goto MenuA
+	goto Menu
+
+
+Menu7:
+	execute ROM307
+	dpy ROM307 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu8:
+	execute ROM308
+	dpy ROM308 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu9:
+	execute ROM309
+	dpy ROM309 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+Menu0:
+	execute ROM310
+	dpy ROM310 DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+MenuA:
+	execute ROM307
+	execute ROM308
+	execute ROM309
+	execute ROM310
+	dpy #
+	dpy #
+	dpy ALL ROM DONE PRESS ANY KEY
+	execute GetKey
+	goto Menu
+
+
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: centiped.307
+!! Purpose: ROM test based on file 
+!! 	0000:  4C 04 3B 1B 31 39 38 30    20 41 54 41 52 C9 20 72 
+!! 	0010:  28 58 20 5C 2D 46 8A 90    FC 8D 00 20 AD 00 0C 29 
+!! 	0020:  20 F0 FE 20 61 25 20 68    30 20 41 27 10 E7 20 C0 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROM307
+	dpy ROM test @ 2000-7FF SIG BFA2
+	aux ROM test @ 2000-7FF SIG BFA2 +
+	
+	read @ 2000
+	if DAT = 4C goto L0
+	aux ERROR @ 2000 +
+	aux , EXPECT 4C +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L0:
+	read @ 2001
+	if DAT = 4 goto L1
+	aux ERROR @ 2001 +
+	aux , EXPECT 4 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L1:
+	read @ 2002
+	if DAT = 3B goto L2
+	aux ERROR @ 2002 +
+	aux , EXPECT 3B +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L2:
+	read @ 2004
+	if DAT = 31 goto L3
+	aux ERROR @ 2004 +
+	aux , EXPECT 31 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L3:
+	read @ 2008
+	if DAT = 20 goto L4
+	aux ERROR @ 2008 +
+	aux , EXPECT 20 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L4:
+	read @ 2010
+	if DAT = 28 goto L5
+	aux ERROR @ 2010 +
+	aux , EXPECT 28 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L5:
+	read @ 2020
+	if DAT = 20 goto L6
+	aux ERROR @ 2020 +
+	aux , EXPECT 20 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L6:
+	read @ 2040
+	if DAT = 20 goto L7
+	aux ERROR @ 2040 +
+	aux , EXPECT 20 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L7:
+	read @ 2080
+	if DAT = A0 goto L8
+	aux ERROR @ 2080 +
+	aux , EXPECT A0 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L8:
+	read @ 2100
+	if DAT = E9 goto L9
+	aux ERROR @ 2100 +
+	aux , EXPECT E9 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L9:
+	read @ 2200
+	if DAT = B5 goto L10
+	aux ERROR @ 2200 +
+	aux , EXPECT B5 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L10:
+	read @ 2400
+	if DAT = 4C goto L11
+	aux ERROR @ 2400  +
+	aux , EXPECT 4C +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L11:
+	ROM test @ 2000-27FF sig BFA2	! from file: centiped.307
+	goto ProgDone
+ 
+ErrCond:
+	!! sound bell; you can change this to ask for input
+	!! right now it logs it to the aux channel and continues
+	dpy # ERROR #
+ 
+ProgDone:
+	aux DONE
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: centiped.308
+!! Purpose: ROM test based on file 
+!! 	0000:  A6 8E A9 F4 85 01 A9 01    95 1A A5 01 F0 BE D0 2E 
+!! 	0010:  A9 88 20 D5 37 A9 85 20    D5 37 A9 00 8D 89 05 8D 
+!! 	0020:  A9 05 8D C9 05 20 A0 26    20 5C 2D A6 89 86 01 CA 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROM308
+	dpy ROM test @ 2800-2FFF SIG 14EB
+	aux ROM test @ 2800-2FFF SIG 14EB +
+	
+	read @ 2800
+	if DAT = A6 goto L0
+	aux ERROR @ 2800 +
+	aux , EXPECT A6 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L0:
+	read @ 2801
+	if DAT = 8E goto L1
+	aux ERROR @ 2801 +
+	aux , EXPECT 8E +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L1:
+	read @ 2802
+	if DAT = A9 goto L2
+	aux ERROR @ 2802 +
+	aux , EXPECT A9 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L2:
+	read @ 2804
+	if DAT = 85 goto L3
+	aux ERROR @ 2804 +
+	aux , EXPECT 85 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L3:
+	read @ 2808
+	if DAT = 95 goto L4
+	aux ERROR @ 2808 +
+	aux , EXPECT 95 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L4:
+	read @ 2810
+	if DAT = A9 goto L5
+	aux ERROR @ 2810 +
+	aux , EXPECT A9 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L5:
+	read @ 2820
+	if DAT = A9 goto L6
+	aux ERROR @ 2820 +
+	aux , EXPECT A9 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L6:
+	read @ 2840
+	if DAT = 29 goto L7
+	aux ERROR @ 2840 +
+	aux , EXPECT 29 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L7:
+	read @ 2880
+	if DAT = 88 goto L8
+	aux ERROR @ 2880  +
+	aux , EXPECT 88 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L8:
+	read @ 2900
+	if DAT = A5 goto L9
+	aux ERROR @ 2900 +
+	aux , EXPECT A5 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L9:
+	read @ 2A00
+	if DAT = 2C goto L10
+	aux ERROR @ 2A00 +
+	aux , EXPECT 2C +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L10:
+	read @ 2C00
+	if DAT = 0 goto L11
+	aux ERROR @ 2C00 +
+	aux , EXPECT 0 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L11:
+	ROM test @ 2800-2FFF sig 14EB	! from file: centiped.308
+	goto ProgDone
+ 
+ErrCond:
+	!! sound bell; you can change this to ask for input
+	!! right now it logs it to the aux channel and continues
+	dpy # ERROR #
+ 
+ProgDone:
+	aux DONE
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: centiped.309
+!! Purpose: ROM test based on file 
+!! 	0000:  30 A9 00 85 8B A0 10 B5    34 29 40 D0 04 A0 00 E6 
+!! 	0010:  8B 98 20 AE 2D E0 0B F0    08 B5 35 30 04 29 BF 95 
+!! 	0020:  35 20 10 23 20 2B 2C 86    8D 20 A8 2B A6 8D 4C 3E 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROM309
+	dpy ROM test @ 3000-37FF SIG 600D
+	aux ROM test @ 3000-37FF SIG 600D +
+	
+	read @ 3000
+	if DAT = 30 goto L0
+	aux ERROR @ 3000 +
+	aux , EXPECT 30 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L0:
+	read @ 3001
+	if DAT = A9 goto L1
+	aux ERROR @ 3001 +
+	aux , EXPECT A9 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L1:
+	read @ 3002
+	if DAT = 0 goto L2
+	aux ERROR @ 3002 +
+	aux , EXPECT 0 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L2:
+	read @ 3004
+	if DAT = 8B goto L3
+	aux ERROR @ 3004 +
+	aux , EXPECT 8B +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L3:
+	read @ 3008
+	if DAT = 34 goto L4
+	aux ERROR @ 3008 +
+	aux , EXPECT 34 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L4:
+	read @ 3010
+	if DAT = 8B goto L5
+	aux ERROR @ 3010 +
+	aux , EXPECT 8B +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L5:
+	read @ 3020
+	if DAT = 35 goto L6
+	aux ERROR @ 3020 +
+	aux , EXPECT 35 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L6:
+	read @ 3040
+	if DAT = 85 goto L7
+	aux ERROR @ 3040 +
+	aux , EXPECT 85 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L7:
+	read @ 3080
+	if DAT = A4 goto L8
+	aux ERROR @ 3080 +
+	aux , EXPECT A4 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L8:
+	read @ 3100
+	if DAT = 24 goto L9
+	aux ERROR @ 3100 +
+	aux , EXPECT 24 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L9:
+	read @ 3200
+	if DAT = 84 goto L10
+	aux ERROR @ 3200 +
+	aux , EXPECT 84 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L10:
+	read @ 3400
+	if DAT = CA goto L11
+	aux ERROR @ 3400 +
+	aux , EXPECT CA +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L11:
+	ROM test @ 3000-37FF sig 600D	! from file: centiped.309
+	goto ProgDone
+ 
+ErrCond:
+	!! sound bell; you can change this to ask for input
+	!! right now it logs it to the aux channel and continues
+	dpy # ERROR #
+ 
+ProgDone:
+	aux DONE
+ 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: c310
+!! Purpose: ROM test based on file 
+!! 	0000:  04 84 8B A4 8B B1 93 29    3F C9 20 F0 04 A6 8C 10 
+!! 	0010:  02 A9 00 C9 30 90 02 29    2F 20 36 38 A4 8B E6 8B 
+!! 	0020:  B1 93 10 DF 60 A0 00 84    8C F0 D6 10 05 49 FF 18 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program ROM310
+	dpy ROM test @ 3800-3FFF SIG A93C
+	aux ROM test @ 3800-3FFF SIG A93C +
+	
+	read @ 3800
+	if DAT = 4 goto L0
+	aux ERROR @ 3800 +
+	aux , EXPECT 4 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L0:
+	read @ 3801
+	if DAT = 84 goto L1
+	aux ERROR @ 3801 +
+	aux , EXPECT 84 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L1:
+	read @ 3802
+	if DAT = 8B goto L2
+	aux ERROR @ 3802 +
+	aux , EXPECT 8B +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L2:
+	read @ 3804
+	if DAT = 8B goto L3
+	aux ERROR @ 3804 +
+	aux , EXPECT 8B +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L3:
+	read @ 3808
+	if DAT = 3F goto L4
+	aux ERROR @ 3808 +
+	aux , EXPECT 3F +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L4:
+	read @ 3810
+	if DAT = 2 goto L5
+	aux ERROR @ 3810 +
+	aux , EXPECT 2 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L5:
+	read @ 3820
+	if DAT = B1 goto L6
+	aux ERROR @ 3820 +
+	aux , EXPECT B1 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L6:
+	read @ 3840
+	if DAT = 20 goto L7
+	aux ERROR @ 3840 +
+	aux , EXPECT 20 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L7:
+	read @ 3880
+	if DAT = A9 goto L8
+	aux ERROR @ 3880 +
+	aux , EXPECT A9 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L8:
+	read @ 3900
+	if DAT = C2 goto L9
+	aux ERROR @ 3900 +
+	aux , EXPECT C2 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L9:
+	read @ 3A00
+	if DAT = F0 goto L10
+	aux ERROR @ 3A00 +
+	aux , EXPECT F0 +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L10:
+	read @ 3C00
+	if DAT = FB goto L11
+	aux ERROR @ 3C00 +
+	aux , EXPECT FB +
+	aux , GOT $DAT +
+	if REG9 = 0 goto ErrCond
+ 
+L11:
+	ROM test @ 3800-3FFF sig A93C	! from file: centiped.310
+	goto ProgDone
+ 
+ErrCond:
+	!! sound bell; you can change this to ask for input
+	!! right now it logs it to the aux channel and continues
+	dpy # ERROR #
+ 
+ProgDone:
+	aux DONE
+
+include "BASICF~1.9LC"
+
+
+
+

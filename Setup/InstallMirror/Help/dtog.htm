@@ -1,0 +1,56 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>DTOG</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Toggles a programmer-specified data bit from one binary logic state to another
+		by performing two write operations at a programmer-specified addres.<br>
+		<br>
+		The DTOG @ CTL function toggles a progmmer-specified control line from one binary logic state
+		to another.
+		<ul>
+			<li> If the DTOG @ CTL form is used and the expression immediately
+			following the equal sign (=) is specified explicitly, the expression
+			must be a binary value from 0 to 11111111.
+			<br><br>
+			<li> If the address (not the DTOG @ CTL form) is specified, then the
+			following bit number expressiong (after BIT) must have a decimal
+			value in the range 0 - (n-1) where n equals the number of bits in the
+			microprocessor data bus.
+			<br><br>
+			<li> In the DTOG @ CTL form, if an expression is used to specify the bit
+			number, it must have a decimal value in the range of 0-7.<br><br>
+			<li> Refer to the pod instruction manuals or the lable on the interface
+			pod to identify whcih control lines are user-writable for a specific pod.
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		dtog @ REGF = FF BIT REG3<br>
+		dtog @ ctl = 01011111 BIT5<br>
+		</font>
+	</td>
+</tr>
+</table>
+
+See also:
+<a href="atog.htm">atog</a>,
+<a href="ramp.htm">ramp</a>,
+<a href="read.htm">read</a>,
+<a href="walk.htm">walk</a>,
+<a href="write.htm">write</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+
+</body>
+</html>

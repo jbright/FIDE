@@ -1,0 +1,51 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>WRITE</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		
+		Writes programmer-specified data to a programmer-specified location in the UUT microprocessor system.
+		<br><br>
+		WRITE @ CTL causes the 9010A to write control lines to the programmer-specified logic levels.
+		<ul>
+			<li> If an expression is used with the CTL form, it must have a binary
+			value from 0 to 11111111. The binary string corresponds to the eight
+			possible UUT control lines. The 9010A forces control liens represented
+			by a 1 high, and corces control lines represented by a 0 low.
+			<br><br>
+			<li> Refere to the pod instruction manuals or the label on the interface
+			pod itself to identify which control lines are user-writeable for a specific
+			pod.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		write @ 7136 = 2F<br>
+		wr CTL = 11000100<br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="atog.htm">atog</a>,
+<a href="dtop.htm">dtog</a>,
+<a href="ramp.htm">ramp</a>,
+<a href="read.htm">read</a>,
+<a href="walk.htm">walk</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+
+</body>
+</html>

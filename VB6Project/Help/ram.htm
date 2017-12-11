@@ -1,0 +1,47 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>RAM TEST</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		
+		RAM SHORT quickly identifies common RAM failures such as 
+		address decoding errors or bits that are not read-writeable. RAM
+		LONG performs the same tests as RAM SHORT and in addition, performs
+		a pattern-sensitivity test for location "soft" RAM errors.
+		
+		<ul>
+			<li> If no addr block is specified, then the 9010A performs RAM test
+			over all blocks of memory specified as RAM under the Address Space Information.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		RAM short @ 1000 - 3FFF<br>
+		RAM long<br>
+		</font>
+	</td>
+</tr>
+</table>
+
+See also:
+<a href="auto.htm">auto test</a>,
+<a href="bus.htm">bus test</a>,
+<a href="io.htm">IO test</a>,
+<a href="rom.htm">ROM test</a>,
+<a href="learn.htm">learn</a>,
+ADDRESS DESCRIPTOR.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

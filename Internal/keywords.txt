@@ -1,0 +1,72 @@
+#
+# Rows starting with a # character are treated as comments
+#
+
+# General Delimiters
+delimiters:
+~|@|%|^|&|*|(|)|-|+|=|\|/|{|}|[|]|:|;|"|'|<|>| |,|.|	| |?
+
+
+
+# Number of sections
+colors:
+4
+
+
+# Max. Number of entries per row
+# Must be declared right before the keyword list
+maximum:
+16
+
+
+# Each of the following lines holds keywords of a group
+# sorted by their starting letter. This makes it
+# possible to find a keyword much faster.
+# The number in front of each row tells how mcuh keywords
+# are following.
+
+#
+# Tags
+#
+groups:
+0,128,0
+1
+!
+
+
+0,0,128
+13
+atog auto aux and
+bus
+cpl
+dpy dtog dec declarations
+execute
+goto
+if include io inc
+label learn
+pod probe program
+ram ramp read rom run
+stop sync shl shr
+test
+walk write 
+
+
+
+128,0,0
+2
+assign as
+reg0 reg1 reg2 reg3 reg4 reg5 reg6 reg7 reg8 reg9 rega regb regc regd rege regf
+
+128,128,0
+8
+active
+data
+error
+force
+interrupt
+line
+no
+trap
+
+
+

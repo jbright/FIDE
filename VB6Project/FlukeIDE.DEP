@@ -1,0 +1,27 @@
+[Version]
+Version=4.0.0.1
+
+[FlukeIDE.exe <0009>]
+Dest=$(AppPath)
+Date=6/14/2003
+Time=12:02
+Version=4.0.0.1
+CABFilename=FlukeIDE.CAB
+CABINFFile=FlukeIDE.INF
+Uses1=MSVBVM60.DLL
+Uses2=OLEAUT32.DLL
+Uses3=OLEPRO32.DLL
+Uses4=ASYCFILT.DLL
+Uses5=STDOLE2.TLB
+Uses6=COMCAT.DLL
+Uses7=scrrun.dll
+Uses8=wshom.ocx
+Uses9=COMDLG32.OCX
+Uses10=mscomctl.ocx
+Uses11=MSCOMM32.OCX
+
+[wshom.ocx <0009>]
+Dest=$(WinSysPath)
+Date=8/23/2001
+Time=08:00
+Version=5.6.0.6626

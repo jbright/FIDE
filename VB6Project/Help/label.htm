@@ -1,0 +1,55 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>LABEL</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Allows the programmer to create lables, i.e. program steps inserted into
+		programs to provide points of entry for branching steps. Identifies a specific
+		location in a program.
+		
+		<ul>
+			<li> Each label is identified by a single hexadecimal digit (0-9, A-F) or with a symbolic name.
+			<br><br>
+			<li> Within a single program, symbolic label names cannot be mixed with hexadecimal label numbers (0-9, A-F).
+			<br><br>
+			<li> 9010A Language keywords must not be chosen as symbolic label names (such as LOOP).
+			<br><br>
+			<li> <b>There are 16 possible labels for each program.</b> 
+			<br><br>
+			<li> All label names must be distinct (first eight characters).
+			<br><br>
+			<li> Labels may appear in any order.
+			<br><br>
+			<li> A label may exist without a branch (GOTO) step to the label.
+			<br><br>
+			<li> A 9010 program statement can follow the colon.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		li:<br>
+		Done: STOP<br>
+		Found: label Found
+		</font>
+	</td>
+</tr>
+</table>
+
+See also:
+<a href="goto.htm">goto</a>,
+<a href="if.htm">if</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

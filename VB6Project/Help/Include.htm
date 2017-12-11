@@ -1,0 +1,51 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY bgcolor=white>
+<h1>INCLUDE</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td width=60%>
+		<h2>Description</h2>
+		Used to include another program or code segment in your
+		current program. <br>
+		<br>
+		<font color=red><b>FIDE Enhancement:</b></font> One of
+		the important enhancements FIDE implements is the ability
+		to include relative path and long file names. A few notes 
+		about the include directive:
+		<ul>
+			<li> There are finite limits to the depth of the includes (legacy compiler limit).
+			<br><br><li> Use "~/" to indicate that the include is relative to your current project
+				directory. An include of "~/lib/Test.9lc" would translate to a physical
+				path of "C:\Your Scripts\Lib\Test.9lc" if your project root was "C:\Your Scripts".
+			<br><br><li> If you do not use the "~/" specifier, then the include paths are relative
+				to your current location.
+			<br><br><li> <b>Pod includes are handled automatically</b> Any include file ending with ".pod"
+				is assumed to be a built-in pod include file.
+			<br><br><li> You cannot include two files of the same name, even if they exists in two 
+				directories. I.e. you cannot include "~/lib/FileA.9lc" and "~/util/FileA.9lc"
+				in the same script. The program will not compile properly.
+			<br><br><li> You can include a file anywhere in your script.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		include "6502.pod"<br>
+		include "~/lib/General Lib.9lc"<br>
+		include "/utils/RAM Utils.9lc"
+		</font>
+	</td>
+</tr>
+</table>
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

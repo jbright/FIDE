@@ -1,0 +1,10 @@
+ 
+include "test1b.txt"
+
+include "test1c.txt"
+
+!include	"~/Sub-Folder/Sub-Sub FOlder/File3.txt"
+
+!include	"Sub-Sub FOlder/File3.txt"
+
+

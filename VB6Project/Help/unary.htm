@@ -1,0 +1,46 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>UNARY</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		
+		Performs the specified unary operation on the contents of the indicated register.
+		
+		<ul>
+			<li> Valid statements are CPL, DEC, INC, SHL, and SHR.
+			<br><br>
+			<li> Symbolic register names can be used in this statement.
+			<br><br>
+			<li> Register identifiers must be previously declared in the local or global 
+			declaration section.
+			<br><br>
+			<li> Unary operator shorthand may not be used in this statement (i.e. INC 3 REG is a syntax
+			error. REG1 = REG5 INC 5 is not).
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		inc REG7<br>
+		inc ErrCnt<br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="reg.htm">reg</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

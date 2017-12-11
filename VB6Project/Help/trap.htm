@@ -1,0 +1,84 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>TRAP</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Setup parameter.<br>
+		<br>
+		Allows the operator to individually enable or disable
+		traps on UUT system errors.
+		<ul>
+			<li> If YES is selected, the UUT system error is
+			reported to the operator as it occurs.
+			<br><br>
+			<li> If NO is selected, the UUT system erro is not
+			reported to the operator as it occurs. 
+			<br><br>
+			<li> Any error types not explicitly specific are set
+			to the 9010A default values.
+			<br>
+			<br>
+			<li> The 9010A's default values are as follows:<br>
+			<br>
+			<table>
+			<tr>
+				<td>trap bad power supply</td>
+				<td>YES</td>
+			</tr>
+			<tr>
+				<td>trap illegal address</td>
+				<td>YES</td>
+			</tr>
+			<tr>
+				<td>trap active interrupt</td>
+				<td>NO</td>
+			</tr>
+			<tr>
+				<td>trap active force line</td>
+				<td>YES</td>
+			</tr>
+			<tr>
+				<td>trap control error</td>
+				<td>YES</td>
+			</tr>
+			<tr>
+				<td>trap address error</td>
+				<td>YES</td>
+			</tr>
+			<tr>
+				<td>trap data error</td>
+				<td>YES</td>
+			</tr>
+			</table>
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		trap bad power supply NO<br>
+		trap active interrupt NO<br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="beep.htm">beep</a>,
+<a href="exercise.htm">exercise</a>,
+<a href="trap.htm">trap</a>,
+<a href="enable.htm">enable</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+
+</body>
+</html>

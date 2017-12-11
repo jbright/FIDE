@@ -1,0 +1,50 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>EXERCISE ERRORS</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Setup parameter.<br>
+		<br>
+		Allows the operator control over 9010A error reporting
+		and interactive handling of errors.
+		<ul>
+			<li> If YES is selected, 9010 display detected
+			error messages and prompts the operator to loop on 
+			errors. 
+			<br><br>
+			<li> If NO is selected, the errors are not reported to the
+			operator, but error messages are transmitted to the
+			RS-232 if it is connected (without the -LOOP? portion of
+			the message).
+			<br><br>
+			<li> The 9010A's default value is YES.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		exercise errors NO <br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="beep.htm">beep</a>, 
+<a href="trap.htm">trap</a>. 
+
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+
+</body>
+</html>

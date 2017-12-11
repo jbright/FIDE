@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FIDESetup", "FIDESetup.vdproj", "{B7247241-81EC-4F8B-AF06-E9ADD5C40E6B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{B7247241-81EC-4F8B-AF06-E9ADD5C40E6B}.Debug.ActiveCfg = Debug
+		{B7247241-81EC-4F8B-AF06-E9ADD5C40E6B}.Debug.Build.0 = Debug
+		{B7247241-81EC-4F8B-AF06-E9ADD5C40E6B}.Release.ActiveCfg = Release
+		{B7247241-81EC-4F8B-AF06-E9ADD5C40E6B}.Release.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

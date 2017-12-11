@@ -1,0 +1,43 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>LEARN</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0 ID="Table1">
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Tests each address location in sequence and identifies it as RAM, ROM, I/O or unassigned.
+		Also creates an address descriptor for each block of memory which was identified. 
+		
+		<ul>
+			<li> If no addr block is specified, the LEARN operation is performed on 
+			the entire microprocessor address space. Refer to the pod
+			instruction mandual for specific address information.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		learn<br>
+		learn @ 1000 - 4FFF<br>
+		</font>
+	</td>
+</tr>
+</table>
+
+See also:
+<a href="io.htm">IO test</a>,
+<a href="ram.htm">RAM test</a>,
+<a href="rom.htm">ROM test</a>,
+ADDRESS DESCRIPTOR.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

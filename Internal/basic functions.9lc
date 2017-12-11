@@ -1,0 +1,53 @@
+ 
+	
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: KeyEnable
+!! Purpose: Wait for a key to be pressed
+!! Inputs: none
+!! Output: Reg B = 40; toggles the enabling of asynchronous keyboard interrupt
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Program KeyEnable
+     REGB = 40                                 !Initialize reg B
+     DPY-+%B                                   !Enable key interrupt to reg B
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: GetKey
+!! Purpose: Wait here until a key is pressed
+!! Inputs: none
+!! Calls to: KeyEnable
+!! Outputs: Register B = the value of a key pressed (0-3F)
+!! Based on program found in the GFI example from Fluke's documentation
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Program GetKey
+
+     EXECUTE KeyEnable                        !Enable interrupt
+1:   LABEL 1    
+     IF REGB = 40 GOTO 1                      !Loop till key pressed (<40)
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: DelayTics8
+!! Purpose: Delays the number of tics specified by REG8
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program DelayTics8
+
+	REG1 = REG8
+dloop:
+	dec REG1
+	if REG1 > 0 goto dloop
+	
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Program: QuarterArcadeLogo
+!! Purpose: I'm a geek
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+program QuarterArcadeLogo
+
+	dpy WWW.QUARTERARCADE.COM
+	aux _
+	aux _
+	aux WWW.QUARTERARCADE.COM
+	REG8 = 10
+	execute DelayTics8
+

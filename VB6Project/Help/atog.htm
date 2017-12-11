@@ -1,0 +1,43 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY bgcolor=white>
+<h1>ATOG</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+<tr valign=top>
+	<td width=60%>
+		<h2>Description</h2>
+		Toggles an opertor-specified address bit from one logic state
+		to another. Two read operations are performed, one at the original
+		address and another after the bit is toggled. 
+		<ul>
+			<li> If the bit number is explicitly specified in the expression,
+			it must have a decimal value in the range 0 - (n-1) where n
+			equals bits in the addreess bus.
+			<br><br>
+		</ul> 
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		atog @ 13FC BIT 7
+		</font>
+	</td>
+</tr>
+</table>
+
+See also:
+<a href="dtog.htm">dtog</a>, 
+<a href="ramp.htm">ramp</a>, 
+<a href="read.htm">read</a>, 
+<a href="walk.htm">walk</a>, 
+<a href="write.htm">write</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>

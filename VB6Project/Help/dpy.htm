@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="Format.css" type="text/css"/>
+</head>
+<BODY>
+<h1>DPY</h1>
+<table width=100% cellpadding=0 cellspacing=0 border=0>
+<tr valign=top>
+	<td class=Content width=60%>
+		<h2>Description</h2>
+		Displays the string on the 9010A.
+		<ul>
+			<li> Text to be displayed is separated from the DPY keyword by a single
+			space, hyphen, or tab.
+			<br><br>
+			<li> Any spaces beyond the single separating character are treated
+			as part of the display message, resulting in leading blanks.
+			<br><br>
+			<li> The DPY string can contain a maximum of 32 characters.
+			<br><br>
+			<li> Spaces at the end of an DPY string are ignored. If trailing blanks
+			are desired, the appropriate number of underscores should be appended
+			to the DPY string.
+			<br><br>
+			<li> Characters allowed in the DPY string are limited to those available
+			on the 9010A. 
+			<br><br>
+			<li> The functions of the special DPY characters are shown below. Symbolic
+			register names can be used with these special AUX characters. Symbolic register
+			names are counted as one character in the AUX string.
+			<br><br>
+			<li> A symbolic register name cannot be immediately followed by a 
+			hexadecimal character (0-9, A-F). A separating space is required.
+			<br><br>
+		</ul> 
+
+		<table>
+		<tr>
+			<th>Character</th>
+			<th>Action Caused</th>
+		</tr>
+		<tr>
+			<td>#</td>
+			<td>Causes the 9010A to beep when DPY is executed. This symbol does not appear on the display when DPY is executed</td>
+		</tr>
+		<tr>
+			<td>$</td>
+			<td>When followed by a hexadecimal digit or symbolic register name, $
+			causes the contents of the designated register to be transmitted in
+			hexadecimal on the display.</td>
+		</tr>
+		<tr>
+			<td>@</td>
+			<td>Same as the $ symbol, except that the contents are displayed in decimal.</td>
+		</tr>
+		<tr>
+			<td>/</td>
+			<td>When / is followed by a hexadecimal digit or symbolic register name, 
+			it suspends program execution and waits for input. When the operator
+			enters a hexadecimal value terminated by ENTER, the 9010A places the value in the
+			designated register and resumes program execution. Pressing the ENDER without
+			specifying a hexadeimcal values causes the value to default to the previous
+			contents of the register.</td>
+		</tr>
+		<tr>
+			<td>\</td>
+			<td>Same as for the / symbole, except that the 9010A accepts only a decimal entry.</td>
+		</tr>
+		<tr>
+			<td>?</td>
+			<td>When ? is followed by a hexadecimal digit or symbolic register name, it suspends
+			program execution and displays the question mark (?). If the operator presses the
+			CLEAR/NO key, the 9010A places a 0 in the designated register. If the operator
+			presses the ENTER/YES key, the 9010A plaes a 1 in the designated register.
+			After the 1 or 0 is placed in the register, the 9010A removes the quesiton mark
+			and then resumes program execution.</td>
+		</tr>
+		<tr>
+			<td>%</td>
+			<td>When % is followed by a hexadecimal digit or symbolic register name, it enables or disables
+			asynchronous input from the operator during execution.
+			Asynchronous input is stored in the register designated by the hexadecimal digit or symbolic
+			register name. </td>
+		</tr>
+		<tr>
+			<td>+</td>
+			<td>When + is the first character in the specification, it causes following characters in the 
+			spefification to be appeneded to the text that is on the
+			display at the time DPY is executed. </td>
+		</tr>
+		
+	</table>
+	
+	NOTE: in order to cause one of the special symbols to be displayed in the case where the symbol is followed by a hexadecimal
+	digit or symbolic register name, the symbol must appear twice in the specification.
+
+	</td>
+
+	<td width=40%>
+		<h2>Example</h2>
+		<font class=EX>
+		dpy test 3 complete pass<br>
+		dpy trailing blank_<br>
+		</font>
+	</td>
+</tr>
+</table>
+<br>
+See also:
+<a href="aux1.htm">aux</a>.
+<br><br>
+View <a href="CompilerIndex.htm">Compiler Index</a>.<br>
+View <a href="SetupParameters.htm">Setup Parameters</a>.<br><br>
+
+</body>
+</html>
